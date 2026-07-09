@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEVEL UP - Premium Social Growth Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.3);
+            --accent: #10b981;
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --danger: #ef4444;
+            --glass-blur: blur(16px);
+        }
+
+        .light-mode {
+            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(15, 23, 42, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
+            --primary-glow: rgba(79, 70, 229, 0.15);
+            --accent: #059669;
+            --accent-glow: rgba(5, 150, 105, 0.15);
+            --danger: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            background: rgba(15, 23, 42, 0.3);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-placeholder {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary), #ec4899);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .light-mode .logo-text {
+            background: linear-gradient(to right, #0f172a, #475569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle, .cart-icon-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 20px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .free-offer-container {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px dashed var(--accent);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .free-offer-title {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .free-options {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .free-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .free-btn.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .pricing-sections {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 24px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), #a855f7);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--primary-glow);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .service-title h3 { font-size: 1.3rem; font-weight: 700; }
+        .service-title p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .counter-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.15);
+            border-radius: 14px;
+            padding: 6px;
+            border: 1px solid var(--card-border);
+        }
+        .light-mode .counter-control { background: rgba(0,0,0,0.04); }
+
+        .counter-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-btn:hover { background: var(--primary); color: white; }
+        .counter-value { font-weight: 700; font-size: 1.15rem; width: 80px; text-align: center; }
+
+        .select-dropdown {
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            outline: none;
+        }
+
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 20px 0;
+            padding-top: 15px;
+            border-top: 1px dashed var(--card-border);
+        }
+
+        .price-amount { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 99;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .light-mode .cart-bar { background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(0,0,0,0.1); }
+        .cart-bar.active { visibility: visible; opacity: 1; }
+
+        .checkout-trigger-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: var(--glass-blur);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 24px;
+            padding: 30px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 14px 14px 40px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+        }
+        .light-mode .input-field { background: rgba(0,0,0,0.03); }
+
+        .payment-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .pay-method-card {
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .pay-method-card.selected { border-color: var(--primary); background: var(--primary-glow); }
+
+        .tab-navigation { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: var(--text-muted); padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 700; }
+        .tab-btn.active { background: var(--primary); color: white; }
+
+        .view-pane { display: none; }
+        .view-pane.active { display: block; }
+
+        .invoice-box { background: #fff; color: #0f172a; border-radius: 20px; padding: 25px; }
+        .invoice-header { display: flex; justify-content: space-between; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 15px; }
+        .invoice-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.85rem; background: #f8fafc; padding: 12px; border-radius: 10px; margin-bottom: 20px;}
+        .invoice-items { width: 100%; border-collapse: collapse; }
+        .invoice-items th { background: #f1f5f9; padding: 8px; text-align: left; }
+        .invoice-items td { padding: 10px 8px; border-bottom: 1px solid #e2e8f0; }
+
+        .qr-section { display: flex; flex-direction: column; align-items: center; padding: 25px; background: #fff; border-radius: 20px; color: #0f172a; }
+        .qr-wrapper { position: relative; padding: 15px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; }
+
+        .btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid var(--card-border); color: var(--text-main); padding: 12px; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 600; }
+
+        /* --- TWO-COLUMN WORKSPACE LOG ARCHITECTURE --- */
+        .history-container-block { max-width: 1200px; margin: 30px auto 0; padding: 20px; display: none; }
+        .history-container-block.show { display: block; }
+        .history-split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .history-column-pane { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 20px; }
+        .column-header-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
+        .upi-color { color: var(--primary); } .cash-color { color: var(--accent); }
+        .history-list-cards { display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto; }
+        .history-item-mini-card { background: rgba(0,0,0,0.2); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .light-mode .history-item-mini-card { background: rgba(255,255,255,0.5); }
+        
+        .view-bill-action-btn { background: var(--primary-glow); border: 1px solid rgba(99,102,241,0.4); color: var(--primary); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+        .delete-record-btn { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: var(--danger); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+
+        .countdown-overlay { position: fixed; bottom: 30px; right: 30px; background: #ef4444; color: white; padding: 16px 24px; border-radius: 16px; display: flex; align-items: center; gap: 15px; z-index: 2000; font-weight: 700; visibility: hidden; opacity: 0; transition: all 0.3s ease; }
+        .countdown-overlay.active { visibility: visible; opacity: 1; }
+        .cancel-delete-btn { background: white; color: #ef4444; border: none; padding: 6px 14px; border-radius: 8px; font-weight: 800; cursor: pointer; }
+
+        .history-toggle-wrapper { max-width: 1200px; margin: 40px auto 0; text-align: center; }
+        .toggle-workspace-btn { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 14px 28px; font-size: 1rem; font-weight: 700; border-radius: 14px; cursor: pointer; }
+
+        @media(max-width: 768px) { .pricing-sections, .history-split-grid, .payment-methods { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container"><div class="logo-placeholder">LU</div><span class="logo-text">LEVEL UP</span></div>
+        <div class="nav-actions">
+            <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            <button class="cart-icon-btn" onclick="openCheckoutModal()"><i class="fas fa-shopping-bag"></i><span class="cart-badge" id="cart-badge-count">0</span></button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Level Up Your Social Presence Instantly</h1>
+        <p>Premium engagement infrastructure for verified network growth acceleration.</p>
+        
+        <div class="free-offer-container">
+            <div class="free-offer-title"><i class="fas fa-gift"></i> Exclusive Welcome Offer</div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Claim 100 free units instantly (Select only one offer package below).</p>
+            <div class="free-options">
+                <button class="free-btn" id="free-likes" onclick="selectFreeOffer('Likes')">100 Free Likes</button>
+                <button class="free-btn" id="free-shares" onclick="selectFreeOffer('Shares')">100 Free Shares</button>
+                <button class="free-btn" id="free-reposts" onclick="selectFreeOffer('Reposts')">100 Free Reposts</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pricing-sections" id="pricing-container"></div>
+
+    <div class="cart-bar" id="floating-cart-bar">
+        <div><h4 id="cart-bar-total">Total: ₹0</h4><p id="cart-bar-items">0 services configured</p></div>
+        <button class="checkout-trigger-btn" onclick="openCheckoutModal()">Proceed <i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-box">
+            <div class="modal-header"><h2>Checkout Configurations</h2><button class="modal-close" onclick="closeModal('checkout-modal')">&times;</button></div>
+            <div style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-muted)">Instagram Handle</label>
+                <div style="position:relative; display:flex; align-items:center;">
+                    <i class="fab fa-instagram" style="position:absolute; left:15px; color:var(--text-muted);"></i>
+                    <input type="text" class="input-field" id="insta-username" placeholder="@username">
+                </div>
+            </div>
+            <div style="margin-bottom: 25px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text-muted)">Payment Configuration Mode</label>
+                <div class="payment-methods">
+                    <div class="pay-method-card selected" id="pay-upi" onclick="selectPayment('UPI')"><i class="fas fa-mobile-alt"></i> UPI Pay</div>
+                    <div class="pay-method-card" id="pay-cash" onclick="selectPayment('Cash')"><i class="fas fa-money-bill-wave"></i> Cash Plan</div>
+                </div>
+            </div>
+            <button class="add-to-cart-btn" onclick="generateOrderInvoice()">Generate Invoice Sheets</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="invoice-modal">
+        <div class="modal-box">
+            <div class="modal-header"><h2 id="invoice-modal-title">Order Processing Gateway</h2><button class="modal-close" onclick="closeModal('invoice-modal')">&times;</button></div>
+            <div class="tab-navigation" id="modal-tab-bar">
+                <button class="tab-btn active" id="tab-qr-trigger" onclick="switchViewPane('qr')">UPI QR Gateway</button>
+                <button class="tab-btn" id="tab-bill-trigger" onclick="switchViewPane('bill')">View Dashboard Sheet</button>
+            </div>
+
+            <div class="view-pane active" id="pane-qr-view">
+                <div class="qr-section" id="isolated-qr-capture-target">
+                    <h3>LEVEL UP GATEWAY</h3>
+                    <div class="qr-wrapper"><div id="qrcode"></div></div>
+                    <p style="font-weight:800; color:#4f46e5; margin-top:12px;" id="qr-display-amt">Amount: ₹0</p>
+                    <p style="font-size:0.8rem; color:#64748b;" id="qr-display-enroll">Enrollment: --</p>
+                </div>
+                <button class="btn-secondary" onclick="downloadQR()"><i class="fas fa-download"></i> Save QR Code Image</button>
+                <div style="margin-top:15px; border-top:1px solid var(--card-border); padding-top:15px;">
+                    <label style="display:block; font-size:0.9rem; margin-bottom:5px; font-weight:600;">Verification UTR Sequence Required</label>
+                    <input type="text" class="input-field" id="utr-number" placeholder="Enter 12-digit UPI Ref ID" style="padding-left:15px;" oninput="validateUtrInput(this.value)">
+                </div>
+            </div>
+
+            <div class="view-pane" id="pane-bill-view">
+                <div class="invoice-box" id="printable-invoice">
+                    <div class="invoice-header"><h3>LEVEL UP STORE</h3><h4 style="color:#6366f1">RECEIPT SHEET</h4></div>
+                    <div class="invoice-details-grid">
+                        <div><strong>Order ID:</strong> <span id="inv-order-id"></span></div>
+                        <div><strong>Date:</strong> <span id="inv-date"></span></div>
+                        <div><strong>Invoice:</strong> <span id="inv-num"></span></div>
+                        <div><strong>Enrollment:</strong> <span id="inv-enroll"></span></div>
+                        <div style="grid-column: span 2;"><strong>Instagram:</strong> <span id="inv-username" style="color:#4f46e5; font-weight:700;"></span></div>
+                        <div style="grid-column: span 2; display:none;" id="inv-utr-row"><strong>Verified Transaction UTR:</strong> <span id="inv-utr-val"></span></div>
+                    </div>
+                    <table class="invoice-items">
+                        <thead><tr><th>Service</th><th>Units Pack</th><th style="text-align:right;">Price</th></tr></thead>
+                        <tbody id="invoice-items-tbody"></tbody>
+                    </table>
+                </div>
+                <button class="btn-secondary" onclick="downloadBill()"><i class="fas fa-file-download"></i> Save Bill Receipt</button>
+            </div>
+
+            <button class="add-to-cart-btn" id="btn-final-lock" style="background:var(--accent); margin-top:15px;" onclick="submitFinalOrder()">Complete & Save Order Logs</button>
+        </div>
+    </div>
+
+    <div class="history-toggle-wrapper">
+        <button class="toggle-workspace-btn" id="toggle-history-btn" onclick="toggleHistoryWorkspace()">View Order History Log Workspace</button>
+    </div>
+
+    <div class="history-container-block" id="history-workspace-block">
+        <div class="history-split-grid">
+            <div class="history-column-pane">
+                <div class="column-header-title upi-color"><i class="fas fa-mobile-alt"></i> UPI Local Payments Log</div>
+                <div class="history-list-cards" id="history-upi-cards-container"></div>
+            </div>
+            <div class="history-column-pane">
+                <div class="column-header-title cash-color"><i class="fas fa-money-bill-wave"></i> Cash Local Payments Log</div>
+                <div class="history-list-cards" id="history-cash-cards-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="countdown-overlay" id="deletion-banner">
+        <div>Purging log record in <span id="deletion-countdown-timer">3</span>s...</div>
+        <button class="cancel-delete-btn" onclick="abortDeletionSequence()">Cancel</button>
+    </div>
+
+    <script>
+        const packages = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
+        const rates = { 'Followers': 0.20, 'Likes': 0.10, 'Comments': 0.10, 'Shares': 0.05, 'Reposts': 0.05 };
+        const icons = { 'Followers': 'fa-users', 'Likes': 'fa-heart', 'Comments': 'fa-comment', 'Shares': 'fa-share-alt', 'Reposts': 'fa-redo' };
+
+        let selectedQuantities = { 'Followers': 0, 'Likes': 0, 'Comments': 0, 'Shares': 0, 'Reposts': 0 };
+        let selectedFreeOffer = null, cart = {}, currentPaymentMethod = 'UPI', currentOrderData = null, isReviewMode = false;
+        let deletionCountdownInterval = null, deletionTimeoutIndex = null, deletionTargetOrderId = null, secondsRemaining = 3;
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            document.querySelector('.theme-toggle i').className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function initPricing() {
+            const container = document.getElementById('pricing-container');
+            if(!container) return; container.innerHTML = '';
+            
+            Object.keys(rates).forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                let optionsHtml = packages.map(qty => `<option value="${qty}">${qty.toLocaleString()} units</option>`).join('');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <div class="service-icon"><i class="fas ${icons[service]}"></i></div>
+                            <div class="service-title"><h3>${service}</h3><p>Premium Retention</p></div>
+                        </div>
+                        <div class="counter-control">
+                            <button class="counter-btn" onclick="changeQty('${service}', -1)"><i class="fas fa-minus"></i></button>
+                            <span class="counter-value" id="qty-${service}">0</span>
+                            <button class="counter-btn" onclick="changeQty('${service}', 1)"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <select class="select-dropdown" id="dropdown-${service}" onchange="selectDropdownQty('${service}', this.value)">
+                            <option value="0">Or select standard bundle package...</option>${optionsHtml}
+                        </select>
+                    </div>
+                    <div>
+                        <div class="price-display"><span class="price-amount" id="price-${service}">₹0</span></div>
+                        <button class="add-to-cart-btn" onclick="addToCart('${service}')">Configure Bundle</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            updateHistoryTable();
+        }
+
+        function changeQty(service, dir) {
+            let idx = packages.indexOf(selectedQuantities[service]);
+            if (dir === 1) selectedQuantities[service] = (idx < packages.length - 1) ? packages[idx + 1] : packages[0];
+            else selectedQuantities[service] = (idx > 0) ? packages[idx - 1] : 0;
+            document.getElementById(`qty-${service}`).innerText = selectedQuantities[service].toLocaleString();
+            document.getElementById(`dropdown-${service}`).value = selectedQuantities[service];
+            document.getElementById(`price-${service}`).innerText = `₹${(selectedQuantities[service] * rates[service]).toLocaleString()}`;
+        }
+
+        function selectDropdownQty(service, val) {
+            selectedQuantities[service] = parseInt(val) || 0;
+            document.getElementById(`qty-${service}`).innerText = selectedQuantities[service].toLocaleString();
+            document.getElementById(`price-${service}`).innerText = `₹${(selectedQuantities[service] * rates[service]).toLocaleString()}`;
+        }
+
+        function selectFreeOffer(type) {
+            if (selectedFreeOffer === type) {
+                selectedFreeOffer = null;
+                document.getElementById(`free-${type.toLowerCase()}`).classList.remove('selected');
+            } else {
+                ['likes', 'shares', 'reposts'].forEach(t => document.getElementById(`free-${t}`).classList.remove('selected'));
+                selectedFreeOffer = type;
+                document.getElementById(`free-${type.toLowerCase()}`).classList.add('selected');
+            }
+            updateCartBar();
+        }
+
+        function addToCart(service) {
+            if (selectedQuantities[service] > 0) {
+                cart[service] = { qty: selectedQuantities[service], price: selectedQuantities[service] * rates[service] };
+                updateCartBar();
+            } else alert("Configure your target quantity array first.");
+        }
+
+        function updateCartBar() {
+            let total = 0, itemsCount = 0;
+            Object.keys(cart).forEach(k => { total += cart[k].price; itemsCount++; });
+            if (selectedFreeOffer) itemsCount++;
+            
+            document.getElementById('cart-badge-count').innerText = itemsCount;
+            const bar = document.getElementById('floating-cart-bar');
+            if (itemsCount > 0) {
+                bar.classList.add('active');
+                document.getElementById('cart-bar-total').innerText = `Total Workspace Pay: ₹${total.toLocaleString()}`;
+                document.getElementById('cart-bar-items').innerText = `${itemsCount} item pipelines calibrated`;
+            } else bar.classList.remove('active');
+        }
+
+        function openCheckoutModal() { document.getElementById('checkout-modal').classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function selectPayment(method) {
+            currentPaymentMethod = method;
+            document.getElementById('pay-upi').classList.remove('selected');
+            document.getElementById('pay-cash').classList.remove('selected');
+            document.getElementById(method === 'UPI' ? 'pay-upi' : 'pay-cash').classList.add('selected');
+        }
+
+        function switchViewPane(view) {
+            document.getElementById('tab-qr-trigger').classList.remove('active');
+            document.getElementById('tab-bill-trigger').classList.remove('active');
+            document.getElementById('pane-qr-view').classList.remove('active');
+            document.getElementById('pane-bill-view').classList.remove('active');
+            if (view === 'qr') { document.getElementById('tab-qr-trigger').classList.add('active'); document.getElementById('pane-qr-view').classList.add('active'); }
+            else { document.getElementById('tab-bill-trigger').classList.add('active'); document.getElementById('pane-bill-view').classList.add('active'); }
+        }
+
+        function buildInvoiceHtml(items, free) {
+            let total = 0, html = '';
+            Object.keys(items).forEach(s => {
+                total += items[s].price;
+                html += `<tr><td>Premium ${s}</td><td>${items[s].qty.toLocaleString()} units</td><td style="text-align:right; font-weight:700;">₹${items[s].price.toLocaleString()}</td></tr>`;
+            });
+            if (free) html += `<tr style="color:#059669; font-weight:600;"><td>🎉 Welcome ${free}</td><td>100 units</td><td style="text-align:right;">₹0</td></tr>`;
+            html += `<tr style="border-top:2px solid #0f172a; font-weight:800;"><td colspan="2">Total Balance Amount Due</td><td style="text-align:right; color:#6366f1;">₹${total.toLocaleString()}</td></tr>`;
+            return html;
+        }
+
+        function generateOrderInvoice() {
+            const user = document.getElementById('insta-username').value.trim();
+            if (!user) return alert("Instagram parameter string configuration missing.");
+            let total = 0; Object.keys(cart).forEach(s => total += cart[s].price);
+            if (total === 0 && !selectedFreeOffer) return alert("Pipeline array completely empty.");
+
+            isReviewMode = false;
+            document.getElementById('invoice-modal-title').innerText = "Verify Pipeline Transactions";
+            document.getElementById('btn-final-lock').style.display = 'block';
+
+            const now = new Date();
+            currentOrderData = {
+                orderId: 'LU' + Math.floor(100000 + Math.random()*900000),
+                invoiceNum: 'INV-' + now.getFullYear() + '-' + Math.floor(1000 + Math.random()*9000),
+                enrollmentNum: 'ENR' + Math.floor(800000 + Math.random()*199999),
+                username: user, totalAmount: total, paymentMethod: currentPaymentMethod,
+                dateStr: now.toLocaleDateString() + ' ' + now.toLocaleTimeString(), items: {...cart}, freeOffer: selectedFreeOffer, billDownloaded: false
+            };
+
+            document.getElementById('inv-order-id').innerText = currentOrderData.orderId;
+            document.getElementById('inv-date').innerText = currentOrderData.dateStr;
+            document.getElementById('inv-num').innerText = currentOrderData.invoiceNum;
+            document.getElementById('inv-enroll').innerText = currentOrderData.enrollmentNum;
+            document.getElementById('inv-username').innerText = user;
+            document.getElementById('invoice-items-tbody').innerHTML = buildInvoiceHtml(cart, selectedFreeOffer);
+            document.getElementById('qr-display-amt').innerText = `Amount: ₹${total.toLocaleString()}`;
+            document.getElementById('qr-display-enroll').innerText = `Enrollment Link ID: ${currentOrderData.enrollmentNum}`;
+
+            document.getElementById('qrcode').innerHTML = '';
+            document.getElementById('utr-number').value = '';
+            document.getElementById('inv-utr-row').style.display = 'none';
+
+            if (currentPaymentMethod === 'UPI' && total > 0) {
+                document.getElementById('modal-tab-bar').style.display = 'grid';
+                switchViewPane('qr');
+                new QRCode(document.getElementById("qrcode"), { text: `upi://pay?pa=8610357386@fam&pn=LEVELUP&am=${total}&cu=INR`, width: 150, height: 150 });
+            } else {
+                document.getElementById('modal-tab-bar').style.display = 'none';
+                switchViewPane('bill');
+            }
+            closeModal('checkout-modal');
+            document.getElementById('invoice-modal').classList.add('active');
+        }
+
+        function validateUtrInput(val) {
+            if (val.trim().length === 12 && !isNaN(val)) {
+                document.getElementById('inv-utr-val').innerText = val.trim();
+                document.getElementById('inv-utr-row').style.display = 'grid';
+                switchViewPane('bill');
+            }
+        }
+
+        function downloadQR() {
+            html2canvas(document.getElementById('isolated-qr-capture-target')).then(canvas => {
+                const a = document.createElement('a'); a.download = `QR-${currentOrderData.enrollmentNum}.png`; a.href = canvas.toDataURL(); a.click();
+            });
+        }
+
+        function downloadBill() {
+            html2canvas(document.getElementById('printable-invoice')).then(canvas => {
+                const a = document.createElement('a'); a.download = `BILL-${currentOrderData.orderId}.png`; a.href = canvas.toDataURL(); a.click();
+                if(!isReviewMode) currentOrderData.billDownloaded = true;
+            });
+        }
+
+        function submitFinalOrder() {
+            if (currentPaymentMethod === 'UPI' && currentOrderData.totalAmount > 0) {
+                const utr = document.getElementById('utr-number').value.trim();
+                if (utr.length !== 12 || isNaN(utr)) return alert("Security Lock: Enter valid 12-digit numeric validation transaction UTR ID sequence.");
+                if (!currentOrderData.billDownloaded) return alert("System Trigger Requirement: Save your generated dashboard sheet bill graphic before closing layout pipeline.");
+                currentOrderData.utr = utr;
+            } else currentOrderData.utr = 'N/A';
+
+            let storage = JSON.parse(localStorage.getItem('levelup_orders') || '[]');
+            storage.unshift(currentOrderData);
+            localStorage.setItem('levelup_orders', JSON.stringify(storage));
+
+            alert("Validation Cleared! Core order logged into system history array maps.");
+            closeModal('invoice-modal');
+            cart = {}; selectedFreeOffer = null; selectedQuantities = { 'Followers': 0, 'Likes': 0, 'Comments': 0, 'Shares': 0, 'Reposts': 0 };
+            document.querySelectorAll('.free-btn').forEach(b => b.classList.remove('selected'));
+            initPricing(); updateCartBar();
+        }
+
+        function toggleHistoryWorkspace() {
+            const block = document.getElementById('history-workspace-block');
+            block.classList.toggle('show');
+            document.getElementById('toggle-history-btn').innerText = block.classList.contains('show') ? "Minimize Workspace Log View" : "View Order History Log Workspace";
+        }
+
+        function updateHistoryTable() {
+            let logs = JSON.parse(localStorage.getItem('levelup_orders') || '[]');
+            const upiContainer = document.getElementById('history-upi-cards-container');
+            const cashContainer = document.getElementById('history-cash-cards-container');
+            
+            upiContainer.innerHTML = ''; cashContainer.innerHTML = '';
+            let upiItems = logs.filter(o => o.paymentMethod === 'UPI');
+            let cashItems = logs.filter(o => o.paymentMethod === 'Cash');
+
+            if(!upiItems.length) upiContainer.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No UPI Transactions logged.</div>';
+            else upiItems.forEach(o => upiContainer.appendChild(renderMiniLogCard(o)));
+
+            if(!cashItems.length) cashContainer.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">No Cash Accounts logged.</div>';
+            else cashItems.forEach(o => cashContainer.appendChild(renderMiniLogCard(o)));
+        }
+
+        function renderMiniLogCard(order) {
+            const div = document.createElement('div'); div.className = 'history-item-mini-card';
+            div.innerHTML = `
+                <div>
+                    <h5 style="font-weight:700;">${order.username} (₹${order.totalAmount})</h5>
+                    <p style="font-size:0.75rem; color:var(--text-muted);">ID: ${order.orderId} | ${order.dateStr.split(' ')[0]}</p>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button class="view-bill-action-btn" onclick="viewArchivedReceipt('${order.orderId}')">View Bill</button>
+                    <button class="delete-record-btn" onclick="triggerDeleteSequence('${order.orderId}')"><i class="fas fa-trash"></i></button>
+                </div>
+            `;
+            return div;
+        }
+
+        function viewArchivedReceipt(id) {
+            let order = JSON.parse(localStorage.getItem('levelup_orders') || '[]').find(o => o.orderId === id);
+            if (!order) return;
+            isReviewMode = true;
+            document.getElementById('invoice-modal-title').innerText = "Review Static History File";
+            document.getElementById('inv-order-id').innerText = order.orderId;
+            document.getElementById('inv-date').innerText = order.dateStr;
+            document.getElementById('inv-num').innerText = order.invoiceNum;
+            document.getElementById('inv-enroll').innerText = order.enrollmentNum;
+            document.getElementById('inv-username').innerText = order.username;
+            document.getElementById('invoice-items-tbody').innerHTML = buildInvoiceHtml(order.items, order.freeOffer);
+            
+            if(order.utr !== 'N/A') { document.getElementById('inv-utr-val').innerText = order.utr; document.getElementById('inv-utr-row').style.display = 'grid'; }
+            else document.getElementById('inv-utr-row').style.display = 'none';
+
+            document.getElementById('modal-tab-bar').style.display = 'none';
+            document.getElementById('btn-final-lock').style.display = 'none';
+            switchViewPane('bill');
+            document.getElementById('invoice-modal').classList.add('active');
+        }
+
+        function triggerDeleteSequence(id) {
+            if(deletionTargetOrderId !== null || !confirm("Are you sure you want to delete this track log file configuration?")) return;
+            deletionTargetOrderId = id; secondsRemaining = 3;
+            document.getElementById('deletion-countdown-timer').innerText = secondsRemaining;
+            document.getElementById('deletion-banner').classList.add('active');
+            deletionCountdownInterval = setInterval(() => { secondsRemaining--; document.getElementById('deletion-countdown-timer').innerText = secondsRemaining; }, 1000);
+            deletionTimeoutIndex = setTimeout(() => {
+                clearInterval(deletionCountdownInterval);
+                document.getElementById('deletion-banner').classList.remove('active');
+                let logs = JSON.parse(localStorage.getItem('levelup_orders') || '[]').filter(o => o.orderId !== deletionTargetOrderId);
+                localStorage.setItem('levelup_orders', JSON.stringify(logs));
+                deletionTargetOrderId = null; initPricing();
+            }, 3000);
+        }
+
+        function abortDeletionSequence() {
+            clearTimeout(deletionTimeoutIndex); clearInterval(deletionCountdownInterval);
+            deletionTargetOrderId = null; document.getElementById('deletion-banner').classList.remove('active');
+        }
+
+        window.addEventListener('DOMContentLoaded', initPricing);
+    </script>
+</body>
+</html>
